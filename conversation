@@ -1,0 +1,16 @@
+#Pearson Mewbourne
+#Tuesday, September 11, 2018
+
+print ("Hello!")
+username = input("What is your name?")
+print("Nice to meet you, "+username+".")
+mood = input("How are you today?")
+if (mood == "good"):
+	print ("That's great to hear!")
+if (mood == "bad"):
+		print ("Uh oh...")
+else:
+	print ("I wish I could feel emotions like you...")
+today = input("What did you do today?")
+print ("Wow, That's cool! I wish I could do that, But I'm only a program. Anyway, I have to go do A.I. stuff. See ya!")
+
