@@ -1,0 +1,22 @@
+import sys #imports information from command line
+name = sys.argv[1] 
+
+#sys.argv is the arguments defined after the program name.
+#sys.argv is a list, starting with the program name at position 0. 
+#using [1] makes it show only the argument in the second position 
+
+print("Hello", name + "!")
+
+# x = 5 (int)
+# x = 5.7 (float)
+# x = "c" (string)
+# x + y (expression)
+# x // y (floored division: divides then rounds down)
+# x % y (modulus: divides and then gives remainder)
+# x ** y (exponent)
+
+
+#QUESTIONS
+#1. The value is the program name, in this case it's "greetings"
+#2. A rudementary way would be to actually count the number of arguments in the list. You could potentially store that value as an int, but that is just a guess.
+#3. If you do not follow the expected number, you will obtain an error.
