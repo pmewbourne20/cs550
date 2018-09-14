@@ -1,0 +1,10 @@
+
+#currency conevrter
+#dollars to yen
+
+dollars = float(input("Enter a U.S. Dollar Value to recieve its yen value: "))
+x = dollars
+z = 111.6
+y = x * z
+
+print("Yen: " + str(y))

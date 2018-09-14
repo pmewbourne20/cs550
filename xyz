@@ -1,0 +1,16 @@
+import sys
+x = sys.argv[1]
+y = sys.argv[2]
+z = sys.argv[3]
+
+x = float(x)
+y = float(y)
+z = float(z)
+
+bool = False
+
+if ((x < y) and (y < z)):
+	bool = True
+if ((x > y) and (y > z)):
+	bool = True
+print(bool)

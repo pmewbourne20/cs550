@@ -1,0 +1,12 @@
+import random
+
+x = random.random()*5+5
+x = x//1
+x = x * 10
+print (x)
+
+#random.randrange(50, 101, 10) 
+#range is the first two numbers, inclusive of the first and exclusive of the second, finding only in incriments of the thirds number
+
+#random.randint(5,10)*10 
+#finds a random int between the two numbers, inclusive of both

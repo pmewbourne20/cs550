@@ -1,0 +1,3 @@
+Celsius = float(input("Enter Celsius Temperature for Farenheit Conversion: "))
+Farenheit = (Celsius*1.8) + 32
+print (str(Farenheit) + " Degrees")

@@ -1,0 +1,9 @@
+go = True
+
+for (go == True):
+	x = 0
+	x%3
+	print(x)
+	x = x+1
+	if (x > 10):
+		go = False

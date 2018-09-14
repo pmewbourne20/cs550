@@ -1,0 +1,6 @@
+import math as m
+import random as r
+
+theta = r.random()*m.pi*2 #random number between 0 and 2*pi
+y = m.cos(theta)**2 + m.sin(theta)**2
+print(y)
