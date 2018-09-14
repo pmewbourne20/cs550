@@ -1,0 +1,8 @@
+x = input("Is it Raining? (Y/N) ")
+
+if ((x == "Y") or (x == "y")):
+	print("Bring an umbrella!")
+if ((x == "N") or (x == "n")):
+	print("Don't bring an umbrella, ya big dummy!")
+
+

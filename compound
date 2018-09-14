@@ -1,0 +1,11 @@
+import math as m
+
+p = float(input("Enter P, the initial value: "))
+r = float(input("Enter R, the annual interest rate: "))/100
+t = float(input("enter T, the number of years: "))
+
+e = m.e
+
+x = p*(e**(r*t))
+
+print("$" + str(x))
