@@ -1,8 +1,16 @@
-x = input("Is it Raining? (Y/N) ")
+x = input("What's the weather? ")
 
-if ((x == "Y") or (x == "y")):
+if (x == "Raining"):
 	print("Bring an umbrella!")
-if ((x == "N") or (x == "n")):
-	print("Don't bring an umbrella, ya big dummy!")
+elif ( x == "Hurricaining"):
+	print("Run for your life, you damn fool!")
+elif ( x == "Sunny"):
+	print("Enjoy it while it lasts")
+elif ( x == "Raining cats and dogs"):
+	print("RIP to all those animals")
+elif (x == "Hailing"):
+	print("Zoo-wee-mama!")
+else:
+	print("Sorry, that's not a recognized form of weather. Please make it simple, in gerund form, and capitalize it.")
 
 

@@ -1,0 +1,19 @@
+import random
+x = (random.randint(0,1)*10)
+def guess():
+	choice = input("Guess a number between 0 and 10, and I'll tell you if you're too high or too low! \n>>")
+	y = int(choice)
+	results(x,y)
+
+
+def results(x,y):
+	if (x > y):
+		print("Too low, Guess again!")
+		guess()
+	elif (y > x):
+		print("Too high, Guess again!")
+		guess()
+	elif (y == x):
+		print("You got it!")
+
+guess()

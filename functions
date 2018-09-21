@@ -1,0 +1,7 @@
+def hi(something): #Define function, can have parentheses to take inputs
+	print("Hello", str(something)+"!") #Must be indented
+
+hi(7)
+hi("Someone")
+hi(True)
+hi("5")

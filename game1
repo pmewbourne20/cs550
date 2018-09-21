@@ -1,0 +1,20 @@
+def start():
+	choice = input("\n\n\n\n\nGreetings! \nYou are heading to the dining hall one day, when there's a bear walking with a dinosaur on campus!! \n\nDo you: \n1) stay inside \n2) head on over to walk with them? \n\n>>")
+	if (choice == "1"):
+		inside()
+	elif (choice == "2"):
+		dinowalk()
+	else:
+		print("Gronk")
+		start()
+	x = 0
+	print(x)
+	x = x+1
+
+def inside():
+	print("lame!")
+
+def dinowalk():
+	print("Fuckin sick dude")
+
+start()
