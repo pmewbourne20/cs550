@@ -1,0 +1,13 @@
+while True:
+	try:
+		x = int(input("enter a number: "))
+		break
+	except ValueError:
+		print("that's not a number")
+
+count = 0
+
+
+while count < x:
+	print("Hello!")
+	count += 1

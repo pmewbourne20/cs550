@@ -1,0 +1,15 @@
+#while condition:
+	#code to repeat
+
+def question():
+	response = input("Give me info: ")
+	while ((response != "hi") and (response != "b")):
+		print("Useless! try again")
+		response = input("Give me info: ")
+	if (response == "hi"):
+		print("a")
+	elif (response == "b"):
+		print("b")
+
+
+question()

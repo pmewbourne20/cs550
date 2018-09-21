@@ -1,0 +1,48 @@
+g = 2000
+import random
+x = 0
+
+
+def rollnum(x):
+	y = random.randint(1,6)
+	if (x == y):
+		g = g*1.5
+	else:
+		g = g*0.75
+
+def rolleven():
+	y = random.randint(1,6)
+	if ((y%2) == 0):
+		g = g*1.3
+	else:
+		g = g*0.75
+
+def rollodd():
+	y = random.randint(1,6)
+	if ((y%2) == 1):
+		g = g*1.3
+	else:
+		g = g*1.3
+
+
+def rollpick():
+	while True:
+		try:
+			choice = input("Would you like to bet on \n1 If the roll will be even or odd \n2 The precise number on the roll \n\n>>")
+			if (choice == 1):
+				while True:
+					try:
+						x = input("Pick a number between 1 and 6: ")
+						if 1<=x<=6:
+							break
+						else:
+							print("That's not in range!")
+					except ValueError:
+						print("This is not a number. Try again")
+				break
+				rollnum(x)
+
+
+
+def aftercheck():
+	ans = input("Would you like to: \n1 Roll \n2 Shop \n3Quit \n\n>>")

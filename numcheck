@@ -1,0 +1,19 @@
+
+def check():
+	global x
+	while True:
+		try:
+			x = int(input("Enter a number: "))
+			break
+		except ValueError:
+			print("That's Not a number!")
+
+check()
+
+while True:
+	if ((x >= 1) and (x <= 5)):
+		print("dope.")
+		break
+	else:
+		print("Not in range. Try again.")
+		check()
