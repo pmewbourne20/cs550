@@ -7,7 +7,7 @@
 
 #Below are my variables. I had issues in defining them as globals in certain places, and I'm sorry if it looks messy, but the code works if I define the globals both here and in the function.
 
-g = 2000
+g = 2500
 import random
 import sys
 x = 0
@@ -26,10 +26,10 @@ def rollnum(x, gfix):
 	y = random.randint(1,6)
 	print("The Dice Rolls a", y)
 	if (x == y):
-		g = gfix*(g1*1.154)
+		g = gfix*(g1*2)
 		print("Gold is now", g, "\n\n")
 	else:
-		g = gfix*g2
+		g = (gfix*g2)-5
 		print("Gold is now", g, "\n\n")
 	aftercheck()
 
@@ -44,7 +44,7 @@ def rolleven(gfix):
 		g = gfix*g1
 		print("Gold is now", g, "\n\n")
 	else:
-		g = gfix*g2
+		g = (gfix*g2)-10
 		print("Gold is now", g, "\n\n")
 	aftercheck()
 
@@ -59,7 +59,7 @@ def rollodd(gfix):
 		g = gfix*g1
 		print("Gold is now", g, "\n\n")
 	else:
-		g = gfix*g2
+		g = (gfix*g2)-10
 		print("Gold is now", g, "\n\n")
 	aftercheck()
 
@@ -69,11 +69,11 @@ def evenodd():
 	global g
 	while True:
 		try:
-			z = input("Do you predict it will roll an \n1 Even \n2 Odd \n\n>>")
-			if z == "1":
+			z = input("Do you predict it will roll an \n1 Odd \n2 Even \n\n>>")
+			if z == "2":
 				rolleven(g)
 				break
-			elif z == "2":
+			elif z == "1":
 				rollodd(g)
 				break
 			elif (z != "1") and (z != "2"):
@@ -193,6 +193,6 @@ def quit():
 	sys.exit(0)
 
 
-print("\n\nWelcome to DiceWorld!\n\nIn this game, you roll a die and try to win gold based on if you predict the outcome! You win more gold than you lose, but if you ever run out of gold, you will be forced to quit the game and start again. You win if you can reach 9999 gold, and you can buy upgrades at the shop to help you. Have fun Gambling!\n\n")
+print("\n\nWelcome to DiceWorld!\n\nIn this game, you roll a die and try to win gold based on if you predict the outcome! You win more gold than you lose, but if you ever run out of gold, you will be forced to quit the game and start again. You win if you can reach 9999 gold, and you can buy upgrades at the shop to help you. Have fun Gambling!\n\nYou have 2500 Gold\n\n")
 
 aftercheck()
