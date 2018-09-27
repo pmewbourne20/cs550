@@ -1,0 +1,19 @@
+import sys
+
+x = int(sys.argv[1])
+
+i1 = 1
+i2 = 1
+c = 2
+
+while True:
+	i = i1 + i2
+	i2 = i1
+	i1 = i
+	c += 1
+	if (c == x):
+		print(i)
+		break
+	if (x == 1 or x == 2):
+		print("1")
+		break
