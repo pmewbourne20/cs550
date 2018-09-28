@@ -11,14 +11,5 @@ while q < len(a):
 		del a[q]
 		q-=1
 	q += 1
-z = 1
-c = 0
-while z < len(a):
-	for c in range(len(a)):
-		if a[(-1*z)] >= a[c]:
-			a.insert(c-1, a[-1*z])
-			del a[(-1*z)]
-			z-=1
-		z+= 1
-	print(a)
-
+a.sort(reverse=True)
+print(a)

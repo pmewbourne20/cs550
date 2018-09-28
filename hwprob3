@@ -1,0 +1,11 @@
+import random
+
+x = random.randint(0,100)
+
+a = []
+
+while len(a) < x:
+	z = random.randint(0,999)
+	if (z%2 == 0):
+		a.append(z)
+print(a)
