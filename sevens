@@ -15,3 +15,4 @@ print(b)
 
 c = [x for x in range(2,51,2)] #same thing as the above code
 print(c)
+

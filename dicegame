@@ -1,48 +1,198 @@
+#Pearson Mewbourne
+#Tuesday, September 25, 2018
+#I made a dice game where you win gold from guessing rolls
+#On My honor, I have neither given nor recieved unauthorized aid
+
+
+
+#Below are my variables. I had issues in defining them as globals in certain places, and I'm sorry if it looks messy, but the code works if I define the globals both here and in the function.
+
 g = 2000
 import random
+import sys
 x = 0
+global g1
+global g2
+global n
+g1 = 1.3
+g2 = 0.75
+n = 0
 
+#Below is the code for returning a precise guess roll. That is to say, when the user wants to bet on the exact number on the dice, this is the code that calculates and outputs that bet.
 
-def rollnum(x):
+def rollnum(x, gfix):
+	global g
+	gfix = g
 	y = random.randint(1,6)
+	print("The Dice Rolls a", y)
 	if (x == y):
-		g = g*1.5
+		g = gfix*(g1*1.154)
+		print("Gold is now", g, "\n\n")
 	else:
-		g = g*0.75
+		g = gfix*g2
+		print("Gold is now", g, "\n\n")
+	aftercheck()
 
-def rolleven():
+#This below is the code for when the user wants to guess that the result of the roll will be an even number
+
+def rolleven(gfix):
+	global g
+	gfix = g
 	y = random.randint(1,6)
+	print("The Dice Rolls a", y)
 	if ((y%2) == 0):
-		g = g*1.3
+		g = gfix*g1
+		print("Gold is now", g, "\n\n")
 	else:
-		g = g*0.75
+		g = gfix*g2
+		print("Gold is now", g, "\n\n")
+	aftercheck()
 
-def rollodd():
+#Below is the code for if the user wants to bet the roll will be an odd number
+
+def rollodd(gfix):
+	global g
+	g = gfix
 	y = random.randint(1,6)
+	print("The Dice Rolls a", y)
 	if ((y%2) == 1):
-		g = g*1.3
+		g = gfix*g1
+		print("Gold is now", g, "\n\n")
 	else:
-		g = g*1.3
+		g = gfix*g2
+		print("Gold is now", g, "\n\n")
+	aftercheck()
 
+#This is the code that asks the user if they want to bet on even or odd.
 
-def rollpick():
+def evenodd():
+	global g
 	while True:
 		try:
+			z = input("Do you predict it will roll an \n1 Even \n2 Odd \n\n>>")
+			if z == "1":
+				rolleven(g)
+				break
+			elif z == "2":
+				rollodd(g)
+				break
+			elif (z != "1") and (z != "2"):
+				print("This is not one of the choices. Please try again.\n\n")
+				
+		except ValueError:
+			print("This is not a number. Try again.\n\n")
+
+
+#This is the code that asks the user what kind of bet they want to make on the roll
+
+def rollpick():
+	global g
+	while True:
 			choice = input("Would you like to bet on \n1 If the roll will be even or odd \n2 The precise number on the roll \n\n>>")
-			if (choice == 1):
+			gfix = g
+			if (choice == "2"):
 				while True:
 					try:
 						x = input("Pick a number between 1 and 6: ")
-						if 1<=x<=6:
+						if 1<=int(x)<=6:
+							rollnum(int(x),gfix)
 							break
 						else:
 							print("That's not in range!")
 					except ValueError:
-						print("This is not a number. Try again")
+						print("This is not a number. Try again.\n\n")
 				break
-				rollnum(x)
+				
+				rollnum(x, g)
+			elif (choice == "1"):
+				evenodd()
+				break
+			else:
+				print("This is not a choice. Try again.\n\n")
+				
+		
+
+				
 
 
+
+#This is the code that checks if the user has won or lost, then asks them what they want to do next
 
 def aftercheck():
-	ans = input("Would you like to: \n1 Roll \n2 Shop \n3Quit \n\n>>")
+	global g
+	gfix = g
+	if (g >= 9999):
+		print("Congratulations! You win! Try again, but see how many hats you can get this time!")
+		quit()
+	if (g <= 0):
+		print("Your gold is less than zero, loser! YOU LOSE!")
+		quit()
+	while True:
+		ans = input("Would you like to: \n1 Roll \n2 Visit the Shop \n3 Quit \n\n>>")
+		if (ans == "1"):
+			rollpick()
+			break
+		if (ans == "2"):
+			shop(gfix)
+			break
+		if (ans == "3"):
+			quit()
+			break
+		else:
+			print("This is not a choice. Try again.\n\n")
+
+#This is my shop code. Here, the user can change the values of their rewards and punishments by buying upgrades, or they can buy a useless hat
+
+def shop(gfix):
+	global g
+	global g1
+	global g2
+	global n
+	print("Welcome to the shop! Please purchase an upgrade")
+	while True:
+		gfix = g
+		try:
+			que = input("1 Win more gold for every correct bet! (Costs 2000G) \n\n2 Lose less gold when you lose! (Costs 1750G) \n\n3 A Nice Hat (Costs 8000G) \n\n4 Nothing, roll again\n\n>>")
+			if que == "1":
+				if (gfix > 2000):
+					g1 = g1*1.1
+					g = g - 2000
+					print("Gold is now", g)
+				elif (gfix <= 2000):
+					print("You don't have enough gold to buy that!")
+			elif que == "2":
+				if (gfix > 1750):
+					g2 = g2*0.95
+					g = g - 2000
+					print("Gold is now", g)
+				elif (gfix <= 1750):
+					print("You don't havce enough gold to buy that!")
+			elif que == "3":
+				if (gfix > 8000):
+					n += 1
+					if (n == 1):
+						print("You now have", n, "nice little hat. Dope, dude.")
+					else:
+						print("You now have", n, "nice little hats. Dope, dude.")
+					g = g - 8000
+					print("Gold is now", g)
+				elif (gfix <= 8000):
+					print("You don't have enough gold to buy that!")
+			elif que == "4":
+				rollpick()
+				break
+			else:
+				print("That isn't a choice!\n\n")
+		except ValueError:
+			print("That isn't a choice!")
+
+
+
+# This quits the code, for when they want to quit, or if they have won or lost
+def quit():
+	sys.exit(0)
+
+
+print("\n\nWelcome to DiceWorld!\n\nIn this game, you roll a die and try to win gold based on if you predict the outcome! You win more gold than you lose, but if you ever run out of gold, you will be forced to quit the game and start again. You win if you can reach 9999 gold, and you can buy upgrades at the shop to help you. Have fun Gambling!\n\n")
+
+aftercheck()

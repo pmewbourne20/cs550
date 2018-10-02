@@ -1,0 +1,38 @@
+#A two dimensional list is a list of lists
+
+i = [[1,2,3],[4,5,6],[7,8,9]]
+#dimensions are 3x3, because its three lists of three
+
+print(i[0])
+#will print [1,2,3]
+
+print(i[0][0])
+#will give you 1
+print(i[1][0])
+#will give you 4
+#number of list is first, value in list is second
+
+# want c = [0,0,0,0,0,0,0,0,0,0,0,0]
+c=[]
+for x in range(10):
+	c.append(0)
+print(c)
+
+#or
+i = [[0]*10 for x in range(10)] #100 zeros in ten lists
+print(i)
+
+#or
+for q in range(10):
+	k = [0]*10
+	i.append(k)
+print(i)
+
+#how to print in a grid
+
+for q in range(len(i)):
+	print(i[q])
+
+for x in i:
+	print(*x) #asterisk removes the brackets from the print
+#don't need to define range if the range is the list itself
