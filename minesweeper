@@ -1,43 +1,82 @@
 import sys
 import random
-
 w = int(sys.argv[1])
 h = int(sys.argv[2])
 b = int(sys.argv[3])
-
-
 a = []
-for i in range(h):
-	k = [0] * w
+for i in range(h+2):
+	k = [0] * (w+2)
 	a.append(k)
-
-
-
 while b > 0:
-	xb = random.randint(-1,w-1)
-	yb = random.randint(-1,h-1)
+	xb = random.randint(1,w-1)
+	yb = random.randint(1,h-1)
 	a[yb][xb] = "*"
+	for p in range(-1,2):
+		for i in range(-1,2):
+			if a[yb+p][xb+i] != "*":
+				a[yb+p][xb+i] += 1
 	b -=1
+for q in range(1,h+1):
+	print(*a[q][1:w+1])
 
-a.insert
 
-for i in range(w):
-	y = 0
+c = []
+
+for i in range(h+2):
+	q = ["?"] * (w*2)
+	c.append(q)
+
+print("\n\n")
+
+for q in range(1,h+1):
+	print(*c[q][1:w+1])
+
+while True:
 	try:
-		if a[y][i] == "*":
-			a[y][i-1] += 1
-			a[y][i+1] += 1
-			a[y+1][i] += 1
-			a[y-1][i] += 1
-			a[y+1][i-1] += 1
-			a[y+1][i+1] += 1
-			a[y-1][i-1] += 1
-			a[y-1][i+1] += 1
-	except TypeError: 
-		print("idk")
-	y += 1
+		checkorf = int(input("\nWould you like to \n1 Mark a space on the board with a flag \nOr \n2 Check a space \n\n>>"))
+		if checkorf == 1:
+			try:
+				fx = int(input("\nEnter an x coordinate for the flag: "))
+				fy = int(input("\nEnter a y coordinate for the flag: "))
+				c[fy][fx] = "F"
+				if a[fy][fx] == "*":
+					global correct += 1
+				for q in range(1,h+1):
+					print(*c[q][1:w+1])
+			except ValueError:
+				print("That's not a valid coordinate!")
+		if checkorf == 2:
+			try:
+				inx = int(input("\nEnter an x coordinate for the square you want to guess: "))
+				if (inx > w) or (inx < 0):
+					print("That's not in range of the board.")
+				iny = int(input("\nEnter a y coordinate for the square you want to guess: "))
+				if (iny > h) or (iny < 0):
+					print("That's not in range of the board.")
+				#bombcheck(iny,inx)
+			except ValueError:
+				print("That's not a valid coordinate")
+		if (checkorf < 1) or (checkorf > 2):
+			print("That's not a choice!")
+	except ValueError:
+		print("That's not a choice!")
 
 
-for q in range(len(a)):
-	print(*a[q])
 
+def bombcheck(iny,inx):
+	while True:
+		if a[iny][inx] == "*":
+			print("That's a bomb! You LOSE!")
+			print(a)
+			break
+		if (a[iny][inx]) < 1:
+			(c[iny][inx]) = 0
+			ix = 1
+			iy = 0
+			while True:
+				if(a[iny+iy][inx+ix]) < 1:
+					c[iny+iy][inx+ix] = 0
+					ix += 1
+				if(a[iny+iy][inx+ix]) > 0:
+					c[iny+iy][inx+ix] = a[iny+iy][inx+ix]
+					iy += 1
