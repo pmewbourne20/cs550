@@ -1,3 +1,11 @@
+#Pearson Mewbourne
+#Tuesday, October 9, 2018
+#I tried to make minsesweeper. It has one major difference.
+#On my honor, I have neither give nor recieved unauthorized aid
+
+
+#My variables. a few are taken as a user input in the command line. a is the list that creates the minesweeper board. co2 and flagsrem are both variables that deal with flags. Under it is the creation of my minesweeper board with the bombs.
+
 import sys
 import random
 w = int(sys.argv[1])
@@ -18,9 +26,8 @@ while b > 0:
 			if a[yb+p][xb+i] != "*":
 				a[yb+p][xb+i] += 1
 	b -=1
-for q in range(1,h+1):
-	print(*a[q][1:w+1])
 
+#This is the creation of the user's board. It consists entirely of question marks.
 
 c = []
 
@@ -28,19 +35,12 @@ for i in range(h+2):
 	q = ["?"] * (w*2)
 	c.append(q)
 
-print("\n\n")
-
 for q in range(1,h+1):
 	print(*c[q][1:w+1])
 
+print("\n\n")
 
-def reveal(x,y):
-	if a[y][x] == 0 and c[y][x] == "?":
-		c[y][x] = 0
-		reveal(x+t2,y+t)
-	if a[y][x] > 0 and c[y][x] == "?":
-		c[y][x] = a[y][x]
-
+#This is the function that checks the value of the coordinate the user gives when checking the board.
 
 def bombcheck(iny,inx):
 	while True:
@@ -57,9 +57,10 @@ def bombcheck(iny,inx):
 			c[iny][inx] = a[iny][inx]
 			break
 
+#This function was meant to replace spaces on the user board with zeros, and continue until it ran into any numbers. Unfortunately, I ran into a issue I was unable to fix. In order to stop infinite loops of this function onto spaces it has already checked, I had it replace the spaces around the original input of the user with zeros, and then do the same to those spaces. But because they are replaced, they technically do not meet the requirement for the function, and the function cannot reveal any spaces except for the original nine.
 
 def replace(iny, inx):
-	if (0 < inx < 6) and (0 < iny < 6):
+	if (0 < inx < w) and (0 < iny < h):
 		if (a[iny][inx] == 0) and (c[iny][inx] == "?"):
 			c[iny][inx] = a[iny][inx]
 			for j in range(-1,2):
@@ -69,44 +70,43 @@ def replace(iny, inx):
 						#if a[iny+i][inx+j] == 0: #and c[iny][inx] == "?":
 							#replace(iny+i+1, inx+j+1)
 
+#variables that determines if user has won through placing correct flags
 
-
-def remand(iny,inx):
-	for inc in range (-1,2):
-		for inc2 in range (-1,2):
-			if (a[iny+inc][inx+inc2] != "*"):
-				#if (a[iny+inc][inx+inc2] == 0 and c[iny+inc][inx+inc2] == "?"):
-					c[iny+inc][inx+inc2] = 0
-					remand(iny+inc,inx+inc2)
-				#if (a[iny+inc][inx+inc2] >= 1 and c[iny+inc][inx+inc2] == "?"):
-					c[iny+inc][inx+inc2] = a[iny+inc][inx+inc2]
-			#bombcheck(iny,inx)
 co = 0
 			
+#main loop that plays the game
+
 while True:
-	print ("You have",flagsrem,"Flags remaining.")
-	if co == co2 :
+	print ("You have",flagsrem,"Flags remaining. Place a flag on a previously placed flag to remove it.")
+#checks if you win by how many of your flags are correctly placed
+	if co == co2 : 
 		print("You WIN! Great job!!")
 		for q in range(1,h+1):
 			print(*a[q][1:w+1])
 		break
 	try:
+#asks the user what they would like to do: Check a space or place a flag
 		checkorf = int(input("\nWould you like to \n1 Mark a space on the board with a flag \nOr \n2 Check a space \n\n>>"))
+#what happends if they choose to place a flag
 		if checkorf == 1:
 			if flagsrem > 0:
 				try:
 					while True:
 						fx = int(input("\nEnter an x coordinate for the flag: "))
 						fy = int(input("\nEnter a y coordinate for the flag: "))
-						if (0<fx<6) and (0<fy<6):
+						if (0<fx<w) and (0<fy<h):
 							break
 						else:
 							print("These are not valid coordinates. Please try again.")
-
+#the function that can remove a previously placed flag
 					if c[fy][fx] != "F":
 						c[fy][fx] = "F"
 					else:
+						if a[fy][fx] == "*":
+							co -= 1
 						c[fy][fx] = "?"
+#Flagsrem determines how many flags a user can place. They begin the game with an amount equal to the bombs. If they place a flag, this decreases. If they remove a flag, it increases. If this limit did not exist, the user could place flags on every space in the board, winning by default.
+						flagsrem += 1
 					if a[fy][fx] == "*":
 						co += 1
 						print(co)
@@ -117,15 +117,19 @@ while True:
 				flagsrem -= 1
 			else:
 				print("Sorry, you don't have enough flags!")
+#what happens if the user wants to check a space.
 		if checkorf == 2:
 			try:
 				while True:
+#inputs are used as variables in the replace function, as the original space.
 					inx = int(input("\nEnter an x coordinate for the square you want to guess: "))
 					iny = int(input("\nEnter a y coordinate for the square you want to guess: "))
-					if (0 < inx < 6) and (0<iny<6):
+#only lets the values that fit within the size of the displayed board work
+					if (0 < inx < w) and (0<iny<h):
 						break
 					else:
 						print("These are not valid coordinates. Please try again.")
+#runs the check function that runs the reveal function, and prints the new board.
 				bombcheck(iny,inx)
 				for q in range(1,h+1):
 					print(*c[q][1:w+1])
