@@ -1,0 +1,5 @@
+#info from user, then add two 
+#create empty board
+#randomly generate a bomb in random place
+#Then, add values to all spaces around bomb, unless the bomb surrounding is another bomb
+#print the inner board 

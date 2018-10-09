@@ -4,6 +4,8 @@ w = int(sys.argv[1])
 h = int(sys.argv[2])
 b = int(sys.argv[3])
 a = []
+co2 = b
+flagsrem = co2
 for i in range(h+2):
 	k = [0] * (w+2)
 	a.append(k)
@@ -31,29 +33,102 @@ print("\n\n")
 for q in range(1,h+1):
 	print(*c[q][1:w+1])
 
+
+def reveal(x,y):
+	if a[y][x] == 0 and c[y][x] == "?":
+		c[y][x] = 0
+		reveal(x+t2,y+t)
+	if a[y][x] > 0 and c[y][x] == "?":
+		c[y][x] = a[y][x]
+
+
+def bombcheck(iny,inx):
+	while True:
+		if a[iny][inx] == "*":
+			print("That's a bomb! You LOSE!")
+			for q in range(1,h+1):
+					print(*a[q][1:w+1])
+			quit()
+			break
+		if (a[iny][inx]) < 1:
+			replace(iny,inx)
+			break
+		if (a[iny][inx] >= 1):
+			c[iny][inx] = a[iny][inx]
+			break
+
+
+def replace(iny, inx):
+	if (0 < inx < 6) and (0 < iny < 6):
+		if (a[iny][inx] == 0) and (c[iny][inx] == "?"):
+			c[iny][inx] = a[iny][inx]
+			for j in range(-1,2):
+				for i in range(-1,2):
+					if (a[iny+i][inx+j]) != "*":
+						c[iny+i][inx+j] = a[iny+i][inx+j]
+						#if a[iny+i][inx+j] == 0: #and c[iny][inx] == "?":
+							#replace(iny+i+1, inx+j+1)
+
+
+
+def remand(iny,inx):
+	for inc in range (-1,2):
+		for inc2 in range (-1,2):
+			if (a[iny+inc][inx+inc2] != "*"):
+				#if (a[iny+inc][inx+inc2] == 0 and c[iny+inc][inx+inc2] == "?"):
+					c[iny+inc][inx+inc2] = 0
+					remand(iny+inc,inx+inc2)
+				#if (a[iny+inc][inx+inc2] >= 1 and c[iny+inc][inx+inc2] == "?"):
+					c[iny+inc][inx+inc2] = a[iny+inc][inx+inc2]
+			#bombcheck(iny,inx)
+co = 0
+			
 while True:
+	print ("You have",flagsrem,"Flags remaining.")
+	if co == co2 :
+		print("You WIN! Great job!!")
+		for q in range(1,h+1):
+			print(*a[q][1:w+1])
+		break
 	try:
 		checkorf = int(input("\nWould you like to \n1 Mark a space on the board with a flag \nOr \n2 Check a space \n\n>>"))
 		if checkorf == 1:
-			try:
-				fx = int(input("\nEnter an x coordinate for the flag: "))
-				fy = int(input("\nEnter a y coordinate for the flag: "))
-				c[fy][fx] = "F"
-				if a[fy][fx] == "*":
-					global correct += 1
-				for q in range(1,h+1):
-					print(*c[q][1:w+1])
-			except ValueError:
-				print("That's not a valid coordinate!")
+			if flagsrem > 0:
+				try:
+					while True:
+						fx = int(input("\nEnter an x coordinate for the flag: "))
+						fy = int(input("\nEnter a y coordinate for the flag: "))
+						if (0<fx<6) and (0<fy<6):
+							break
+						else:
+							print("These are not valid coordinates. Please try again.")
+
+					if c[fy][fx] != "F":
+						c[fy][fx] = "F"
+					else:
+						c[fy][fx] = "?"
+					if a[fy][fx] == "*":
+						co += 1
+						print(co)
+					for q in range(1,h+1):
+						print(*c[q][1:w+1])
+				except ValueError:
+					print("That's not a valid coordinate!")
+				flagsrem -= 1
+			else:
+				print("Sorry, you don't have enough flags!")
 		if checkorf == 2:
 			try:
-				inx = int(input("\nEnter an x coordinate for the square you want to guess: "))
-				if (inx > w) or (inx < 0):
-					print("That's not in range of the board.")
-				iny = int(input("\nEnter a y coordinate for the square you want to guess: "))
-				if (iny > h) or (iny < 0):
-					print("That's not in range of the board.")
-				#bombcheck(iny,inx)
+				while True:
+					inx = int(input("\nEnter an x coordinate for the square you want to guess: "))
+					iny = int(input("\nEnter a y coordinate for the square you want to guess: "))
+					if (0 < inx < 6) and (0<iny<6):
+						break
+					else:
+						print("These are not valid coordinates. Please try again.")
+				bombcheck(iny,inx)
+				for q in range(1,h+1):
+					print(*c[q][1:w+1])
 			except ValueError:
 				print("That's not a valid coordinate")
 		if (checkorf < 1) or (checkorf > 2):
@@ -63,20 +138,3 @@ while True:
 
 
 
-def bombcheck(iny,inx):
-	while True:
-		if a[iny][inx] == "*":
-			print("That's a bomb! You LOSE!")
-			print(a)
-			break
-		if (a[iny][inx]) < 1:
-			(c[iny][inx]) = 0
-			ix = 1
-			iy = 0
-			while True:
-				if(a[iny+iy][inx+ix]) < 1:
-					c[iny+iy][inx+ix] = 0
-					ix += 1
-				if(a[iny+iy][inx+ix]) > 0:
-					c[iny+iy][inx+ix] = a[iny+iy][inx+ix]
-					iy += 1
