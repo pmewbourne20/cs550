@@ -1,0 +1,15 @@
+from PIL import Image
+
+imgx = 512
+imgy = 512
+c = 0
+
+image = Image.new("RGB",(imgx,imgy))
+for i in range(imgx):
+	for j in range(imgy):
+		image.putpixel((i,j),(c,0,0))
+	c += 1
+	if c > 64:
+		c = 0
+
+image.save("demo.png","PNG")
