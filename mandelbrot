@@ -1,0 +1,79 @@
+from PIL import Image
+import math
+
+imy = 3
+imx = 3
+c = 0
+x = 0
+y = 0
+bx = 0
+by = 0
+con = 0
+
+image = Image.new("RGB", (imx,imy))
+
+
+
+def mandelbrot(x,y,cx,cy):
+	global c
+	global by
+	global bx
+	global con
+	g = 0
+	r = 0
+	b = 225
+	z2x = ((x**2)-(y**2))
+	z2y = (2*x*y)
+	z2x = z2x + cx
+	z2y = z2y + cy
+	if (math.sqrt((z2x**2)+(z2y**2)) >= 2):
+		c += 1
+		if c == 1:
+			r = 255
+			b = 0
+		if c == 2:
+			r == 0
+			g == 255
+			b = 0
+		if cx == -2:
+			bx = 0
+		if cx == 0:
+			bx = 1
+		if cx == 2:
+			bx = 2
+		if cy == -2:
+			by = 2
+		if cy == 0:
+			by = 1
+		if cy == 2:
+			by = 0
+		c = 0
+		image.putpixel((bx,by),(r,g,b))
+		return
+	con += 1
+	if con >= 3:
+		con = 0
+		if cx == -2:
+			bx = 0
+		if cx == 0:
+			bx = 1
+		if cx == 2:
+			bx = 2
+		if cy == -2:
+			by = 2
+		if cy == 0:
+			by = 1
+		if cy == 2:
+			by = 0
+		c = 0
+		image.putpixel((bx,by),(r,g,b))
+		return
+	mandelbrot(z2x,z2y,cx,cy)
+
+
+for i in range(-2,2):
+	for q in range(-2,2):
+		mandelbrot(x,y,i,q)
+
+image.save("mandelbrot.png","PNG")
+

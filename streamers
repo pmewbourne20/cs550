@@ -1,0 +1,32 @@
+from PIL import Image
+import random
+
+imx = 512
+imy = 512
+
+
+image = Image.new("RGB",(imx,imy))
+
+for i in range(100):
+	x = random.randint(0,imx)
+	c1 = random.randint(0,255)
+	c2 = random.randint(0,255)
+	c3 = random.randint(0,255)
+	for cre in range(imy):
+		xc = random.randint(-1,1)
+		x+=xc
+		if x > 511:
+			x = 510
+		if x < 2:
+			x = 1
+		image.putpixel((x, cre),(c1,c2,c3))
+
+for i in range(50):
+	for q in range(50):
+		image.putpixel((i,q),(255,0,0))
+
+image.save("streamers.png", "PNG")
+
+for i in range(50):
+	for q in range(50):
+		image.putpixel((i,q),(255,0,0))

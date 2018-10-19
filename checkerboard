@@ -1,0 +1,32 @@
+from PIL import Image
+
+imx = 512
+imy = 512
+c = 0
+y = 0
+x = 64
+
+image = Image.new("RGB",(imx,imy))
+
+for q in range(4):
+	for i in range(imx):
+		for j in range(64):
+			image.putpixel((i, y+j),(c,0,0))
+			if i == 64 or i == 192 or i == 320 or i == 448:
+				c = 255
+			if i == 0 or i == 128 or i == 256 or i ==384:
+				c = 0
+	y += 128
+
+for q in range(4):
+	for i in range(imx):
+		for j in range(64):
+			image.putpixel((i, x+j),(c,0,0))
+			if i == 0 or i == 128 or i == 256 or i == 384:
+				c = 255
+			if i == 64 or i == 192 or i == 320  or i == 448:
+				c = 0
+	x += 128
+
+image.save("Checkerboard.png", "PNG")
+	
