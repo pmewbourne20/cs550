@@ -1,0 +1,134 @@
+from PIL import Image
+
+def mandelbrot1():
+	xmin, xmax = -1.1888804738823726, -1.188840147691971
+	ymin, ymax = -0.30387615760389497, -0.3038358314134934
+
+#if you want to zoom, you have to change ymin, ymax, xmin, and xmax
+
+	imgx, imgy = 512,512
+
+	maxIt = 256
+
+	image = Image.new("RGB",(imgx,imgy))
+
+	for x in range(imgx):
+		cx = x*((xmax-xmin)/(imgx-1))+xmin
+		for y in range(imgy):
+#To find total number of spaces relating to the -2,2 range: x*(xmax-xmin/(imgx-1))+xmin
+			cy = y*((ymax-ymin)/(imgy-1))+ymin
+			c = complex(cx,cy)
+			z = 0
+			for i in range(maxIt):
+				if abs(z) >= 2.0:
+					break
+				z = z**2 + c
+			r = i
+			g = (i**8)*12%200
+			b = (i)%189
+			image.putpixel((x,y),(r,g,b))
+
+	image.show()
+
+
+def mandelbrot2():
+	xmin, xmax = 0.4438680013020833, 0.4473012288411458
+	ymin, ymax = 0.3346099853515625, 0.338043212890625
+
+#if you want to zoom, you have to change ymin, ymax, xmin, and xmax
+
+	imgx, imgy = 512,512
+
+	maxIt = 256
+
+	image = Image.new("RGB",(imgx,imgy))
+
+	for x in range(imgx):
+		cx = x*((xmax-xmin)/(imgx-1))+xmin
+		for y in range(imgy):
+#To find total number of spaces relating to the -2,2 range: x*(xmax-xmin/(imgx-1))+xmin
+			cy = y*((ymax-ymin)/(imgy-1))+ymin
+			c = complex(cx,cy)
+			z = 0
+			for i in range(maxIt):
+				if abs(z) >= 2.0:
+					break
+				z = z**2 + c
+			r = i-255
+			g = i%8
+			b = ((3**i)%255)-8
+			image.putpixel((x,y),(r,g,b))
+
+	image.show()
+
+
+
+def mandelbrot3():
+	xmin, xmax = -0.364, 0
+	ymin, ymax = -1, -0.98
+
+#if you want to zoom, you have to change ymin, ymax, xmin, and xmax
+
+	imgx, imgy = 512,512
+
+	maxIt = 256
+
+	image = Image.new("RGB",(imgx,imgy))
+
+	for x in range(imgx):
+		cx = x*((xmax-xmin)/(imgx-1))+xmin
+		for y in range(imgy):
+#To find total number of spaces relating to the -2,2 range: x*(xmax-xmin/(imgx-1))+xmin
+			cy = y*((ymax-ymin)/(imgy-1))+ymin
+			c = complex(cx,cy)
+			z = 0
+			for i in range(maxIt):
+				if abs(z) >= 2.0:
+					break
+				z = z**3 + c**2
+			r = i-255
+			g = i%8
+			b = ((3**i)%255)-8
+			image.putpixel((x,y),(r,g,b))
+
+	image.show()
+
+mandelbrot3()
+mandelbrot2()
+mandelbrot1()
+
+if __name__ == "__main__": 
+    
+    # setting the width, height and zoom  
+    # of the image to be created 
+    w, h, zoom = 1920,1080,1
+   
+    # creating the new image in RGB mode 
+    bitmap = Image.new("RGB", (w, h), "white") 
+  
+    # Allocating the storage for the image and 
+    # loading the pixel data. 
+    pix = bitmap.load() 
+     
+    # setting up the variables according to  
+    # the equation to  create the fractal 
+    cX, cY = -0.7, 0.27015
+    moveX, moveY = 0.0, 0.0
+    maxIter = 255
+   
+    for x in range((int(w)/4),(int(w)/2)): 
+        for y in range(h): 
+            zx = 1.5*(x - w/2)/(0.5*zoom*w) + moveX 
+            zy = 1.0*(y - h/2)/(0.5*zoom*h) + moveY 
+            i = maxIter 
+            while zx*zx + zy*zy < 4 and i > 1: 
+                tmp = zx*zx - zy*zy + cX 
+                zy,zx = 2.0*zx*zy + cY, tmp 
+                i -= 1
+  
+            # convert byte to RGB (3 bytes), kinda  
+            # magic to get nice colors 
+            pix[x,y] = (i << 21) + (i << 10) + i*8
+  
+    # to display the created fractal 
+    bitmap.show() 

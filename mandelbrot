@@ -71,9 +71,9 @@ def mandelbrot(x,y,cx,cy):
 	mandelbrot(z2x,z2y,cx,cy)
 
 
-for i in range(-2,2):
-	for q in range(-2,2):
-		mandelbrot(x,y,i,q)
+#for i in range(-2,2,2):
+	#for q in range(-2,2,2):
+mandelbrot(x,y,2,-2)
 
 image.save("mandelbrot.png","PNG")
 
