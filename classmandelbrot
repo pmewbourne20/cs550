@@ -1,22 +1,30 @@
+#Pearson Mewbourne
+#Thursday, October 25, 2018
+#This is my mandelbrot code that generates two pre decided fractals and then a third random julia grid.
+#On My honor, I have neither given nor recieved unauthorized aid
+
+
 from PIL import Image
 import random
+
+#These two variables below are the only that remain consistent throughout each function.
+maxIt = 256
+imgx, imgy = 1024,1024
+
+#This is the function of the red image. Both this and the blue image's code are based off of the code we wrote during class. 
+#My original mandelbort code would work for individual squares, but could not perform a for loop with each square, so I relied on this instead.
 
 def mandelbrot1():
 	xmin, xmax = -1.1888804738823726, -1.188840147691971
 	ymin, ymax = -0.30387615760389497, -0.3038358314134934
-
-#if you want to zoom, you have to change ymin, ymax, xmin, and xmax
-
-	imgx, imgy = 512,512
-
-	maxIt = 256
-
+	#The above variables determine the "zoom" onto the mandelbrot grid, providing the boundaries for whichever detail one wishes to view.
 	image = Image.new("RGB",(imgx,imgy))
-
+	#For each pattern, I had to create a new image. I made each of them RGB as it is the color system i am most familiar with. 
+	#I tried to research into using HSV and HLS, but could only find guides on converting RGB into the other system and not the details of the system itself.
 	for x in range(imgx):
 		cx = x*((xmax-xmin)/(imgx-1))+xmin
 		for y in range(imgy):
-#To find total number of spaces relating to the -2,2 range: x*(xmax-xmin/(imgx-1))+xmin
+			#In a mandelbrot fractal, the c value is dependant on the square itself, so for every loop placing a pixel, it must redefine c as well.
 			cy = y*((ymax-ymin)/(imgy-1))+ymin
 			c = complex(cx,cy)
 			z = 0
@@ -25,29 +33,24 @@ def mandelbrot1():
 					break
 				z = z**2 + c
 			r = i
+			#The red values are very high in this image because red will always have a vsalue greater than or equal to one, giving it much more prominence than the other colors.
+			#I wanted to give each fractal a color scheme of one of the individual colors from RGB. 
+			#This achieved the greatest variety of color compared to the other two, but I prefer the second's design oevrall.
 			g = (i**8)*12%200
 			b = (i)%189
 			image.putpixel((x,y),(r,g,b))
 
 	image.show()
+	#I like to imagine this image as a coral reef, due to the saturation of reds, pinks, and oranges, and the outbranching structures that resemble individual pieces of coral.
 
-
+#This is the function for the blue image. Not much of the code is structurally different from the first, but the values have changed to display a different image with different colors.
 def mandelbrot2():
 	xmin, xmax = 0.4438680013020833, 0.4473012288411458
 	ymin, ymax = 0.3346099853515625, 0.338043212890625
-
-#if you want to zoom, you have to change ymin, ymax, xmin, and xmax
-
-	imgx, imgy = 512,512
-
-	maxIt = 256
-
 	image = Image.new("RGB",(imgx,imgy))
-
 	for x in range(imgx):
 		cx = x*((xmax-xmin)/(imgx-1))+xmin
 		for y in range(imgy):
-#To find total number of spaces relating to the -2,2 range: x*(xmax-xmin/(imgx-1))+xmin
 			cy = y*((ymax-ymin)/(imgy-1))+ymin
 			c = complex(cx,cy)
 			z = 0
@@ -59,63 +62,25 @@ def mandelbrot2():
 			g = i%8
 			b = ((3**i)%255)-8
 			image.putpixel((x,y),(r,g,b))
+			#One thing that I find very interesting about this fractal is that in the very center, surrounded by choactic branches of blue, lies another miniature mandelbrot set in pure black.
 
 	image.show()
 
-
-
-def mandelbrot3():
-	xmin, xmax = -0.364, 0
-	ymin, ymax = -1, -0.98
-
-#if you want to zoom, you have to change ymin, ymax, xmin, and xmax
-
-	imgx, imgy = 512,512
-
-	maxIt = 256
-
-	image = Image.new("RGB",(imgx,imgy))
-
-	for x in range(imgx):
-		cx = x*((xmax-xmin)/(imgx-1))+xmin
-		for y in range(imgy):
-#To find total number of spaces relating to the -2,2 range: x*(xmax-xmin/(imgx-1))+xmin
-			cy = y*((ymax-ymin)/(imgy-1))+ymin
-			c = complex(cx,cy)
-			z = 0
-			for i in range(maxIt):
-				if abs(z) >= 2.0:
-					break
-				z = z**3 + c**2
-			r = i-255
-			g = i%8
-			b = ((3**i)%255)-8
-			image.putpixel((x,y),(r,g,b))
-
-	image.show()
-
-mandelbrot2()
-mandelbrot1()
-
-
+#This is the function to create the julia fractal. 
+#To me, what set apart the julia fractal from the mandelbrot fractal was that the c value was not equal to the originial point, instead being assigned a random value somewhere on the grid.
+#Because of this, I made c a random value for every grid, creating a different shape every time. But because I could not know the most interesting parts of the pattern, I could not zoom in on any specific intersting part. Instead, the fractal zooms in on the center, as I wanted to frame out the usually empty black space on all edges.
 def juliafrac():
-	xmin, xmax = -2, 2
-	ymin, ymax = -2, 2
-
-#if you want to zoom, you have to change ymin, ymax, xmin, and xmax
-
-	imgx, imgy = 512,512
-
-	maxIt = 256
-
+	xmin, xmax = -1,1
+	ymin, ymax = -1,1
 	image = Image.new("RGB",(imgx,imgy))
-	cx = random.uniform(-2,2)
-	cy = random.uniform(-2,2)
+	cx = random.uniform(-2,1)
+	cy = random.uniform(-1,1)
 	#source: https://stackoverflow.com/questions/6088077/how-to-get-a-random-number-between-a-float-range
+	#This was not a major shaping into how I wrote the code, but provided me with a new function I never knew about.
 	for x in range(imgx):
 		x2 = x*((xmax-xmin)/(imgx-1))+xmin
+		#Instead of cx and cy being determined by the placement on the grid, the first z value is equal to its coordinates, meaning that they had to undergo the change from (-1024,1025) to (-2,2) instead.
 		for y in range(imgy):
-#To find total number of spaces relating to the -2,2 range: x*(xmax-xmin/(imgx-1))+xmin
 			y2 = y*((ymax-ymin)/(imgy-1))+ymin
 			c = complex(cx,cy)
 			z = complex(x2,y2)
@@ -123,17 +88,16 @@ def juliafrac():
 				if abs(z) >= 2.0:
 					break
 				z = z**2 + c
-			r = 0
-			g = 0
-			b = 0
-			if i == 1:
-				r = 255
-			elif i == 2:
-				g = 255
-			elif i >= 3:
-				b = i
+			r = i-6
+			g = (i**3)%255
+			b = i%157
 			image.putpixel((x,y),(r,g,b))
 
 	image.show()
+	#This one is weird, because sometimes the image you get will be a stunning swarm of spirals in wild greens and crazy blues, but other times it will just be two dots. I usually just run the code until I get one that looks good.
 
+#Finally, down here, I run the functions to create the images. I run juliafrac() twice for a higher chance of a good looking image.
 juliafrac()
+juliafrac()
+mandelbrot2()
+mandelbrot1()
