@@ -1,0 +1,38 @@
+from PIL import Image
+import random
+imgx = 512
+imgy = 512
+
+def juliafrac():
+	xmin, xmax = -2, 2
+	ymin, ymax = -2, 2
+
+#if you want to zoom, you have to change ymin, ymax, xmin, and xmax
+
+	imgx, imgy = 512,512
+
+	maxIt = 256
+
+	image = Image.new("RGB",(imgx,imgy))
+	cx = random.uniform(-2,2)
+	cy = random.uniform(-2,2)
+	#source: https://stackoverflow.com/questions/6088077/how-to-get-a-random-number-between-a-float-range
+	for x in range(imgx):
+		x2 = x*((xmax-xmin)/(imgx-1))+xmin
+		for y in range(imgy):
+#To find total number of spaces relating to the -2,2 range: x*(xmax-xmin/(imgx-1))+xmin
+			y2 = y*((ymax-ymin)/(imgy-1))+ymin
+			c = complex(cx,cy)
+			z = complex(x2,y2)
+			for i in range(maxIt):
+				if abs(z) >= 2.0:
+					break
+				z = z**2 + c
+			r = i%255
+			g = (6*i)%(255-(i-2))
+			b = ((3**i)%255)-8
+			image.putpixel((x,y),(r,g,b))
+
+	image.show()
+
+juliafrac()

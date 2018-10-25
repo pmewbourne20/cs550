@@ -1,4 +1,5 @@
 from PIL import Image
+import random
 
 def mandelbrot1():
 	xmin, xmax = -1.1888804738823726, -1.188840147691971
@@ -93,42 +94,46 @@ def mandelbrot3():
 
 	image.show()
 
-mandelbrot3()
 mandelbrot2()
 mandelbrot1()
 
-if __name__ == "__main__": 
-    
-    # setting the width, height and zoom  
-    # of the image to be created 
-    w, h, zoom = 1920,1080,1
-   
-    # creating the new image in RGB mode 
-    bitmap = Image.new("RGB", (w, h), "white") 
-  
-    # Allocating the storage for the image and 
-    # loading the pixel data. 
-    pix = bitmap.load() 
-     
-    # setting up the variables according to  
-    # the equation to  create the fractal 
-    cX, cY = -0.7, 0.27015
-    moveX, moveY = 0.0, 0.0
-    maxIter = 255
-   
-    for x in range((int(w)/4),(int(w)/2)): 
-        for y in range(h): 
-            zx = 1.5*(x - w/2)/(0.5*zoom*w) + moveX 
-            zy = 1.0*(y - h/2)/(0.5*zoom*h) + moveY 
-            i = maxIter 
-            while zx*zx + zy*zy < 4 and i > 1: 
-                tmp = zx*zx - zy*zy + cX 
-                zy,zx = 2.0*zx*zy + cY, tmp 
-                i -= 1
-  
-            # convert byte to RGB (3 bytes), kinda  
-            # magic to get nice colors 
-            pix[x,y] = (i << 21) + (i << 10) + i*8
-  
-    # to display the created fractal 
-    bitmap.show() 
+
+def juliafrac():
+	xmin, xmax = -2, 2
+	ymin, ymax = -2, 2
+
+#if you want to zoom, you have to change ymin, ymax, xmin, and xmax
+
+	imgx, imgy = 512,512
+
+	maxIt = 256
+
+	image = Image.new("RGB",(imgx,imgy))
+	cx = random.uniform(-2,2)
+	cy = random.uniform(-2,2)
+	#source: https://stackoverflow.com/questions/6088077/how-to-get-a-random-number-between-a-float-range
+	for x in range(imgx):
+		x2 = x*((xmax-xmin)/(imgx-1))+xmin
+		for y in range(imgy):
+#To find total number of spaces relating to the -2,2 range: x*(xmax-xmin/(imgx-1))+xmin
+			y2 = y*((ymax-ymin)/(imgy-1))+ymin
+			c = complex(cx,cy)
+			z = complex(x2,y2)
+			for i in range(maxIt):
+				if abs(z) >= 2.0:
+					break
+				z = z**2 + c
+			r = 0
+			g = 0
+			b = 0
+			if i == 1:
+				r = 255
+			elif i == 2:
+				g = 255
+			elif i >= 3:
+				b = i
+			image.putpixel((x,y),(r,g,b))
+
+	image.show()
+
+juliafrac()
