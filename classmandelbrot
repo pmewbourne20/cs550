@@ -73,6 +73,7 @@ def juliafrac():
 	xmin, xmax = -1,1
 	ymin, ymax = -1,1
 	image = Image.new("RGB",(imgx,imgy))
+	#I limit the ranges of cx and cy because there is a lot lower chance of having an interesting pattern when cx>1 or cx<-2, and when cy>1 or cy<-1. This is because the julia grid is partially based off of the mandelbrot grid, and those ranges are where the mandelbrot fractal actually forms.
 	cx = random.uniform(-2,1)
 	cy = random.uniform(-1,1)
 	#source: https://stackoverflow.com/questions/6088077/how-to-get-a-random-number-between-a-float-range
