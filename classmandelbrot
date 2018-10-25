@@ -90,6 +90,7 @@ def juliafrac():
 					break
 				z = z**2 + c
 			r = i-6
+			#I give r such a similar value to the red image because sometimes it creates really interesting patterns inside the fractal.
 			g = (i**3)%255
 			b = i%157
 			image.putpixel((x,y),(r,g,b))
