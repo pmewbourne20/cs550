@@ -1,0 +1,59 @@
+class Dog:
+		#constructor: initializes all variables and sets up the object
+		def __init__(self, name, hunger, energy):
+			self.hunger = hunger
+			self.energy = energy
+			self.name = name
+
+		#methods / functions (method is a function within a class)
+		def eat(self, amount):
+			status = ""
+			if self.hunger < 10:
+				self.hunger += 2*amount
+				self.energy -= amount
+				status = self.name+"Just ate a delicious meal!"
+			else:
+				status = self.name+"Refused to eat. They're not hungry enough."
+
+		def stats(self):
+				return "Name: "+self.name+"\nEnergy:"+str(self.energy)+"\nHunger:"+str(self.hunger)
+
+		def sleep(self, hours):
+			status = ""
+			if self.energy < 10:
+				self.energy += hours*2
+				self.hunger -= 1
+				status = self.name+"just took a nice nap."
+			else:
+				status = self.name+"just isn't tired right now."
+
+		def walk(self):
+			status = ""
+			if self.energy > 0:
+				self.energy -= 2
+				status = self.name+"just had a great time on a walk!"
+			else:
+				status = self.name+"is too tired for a walk!"
+
+
+
+dogname = input("What would you like to name your dog? ")
+dog1 = Dog(dogname, 5, 2)
+dog2 = Dog("Mary", 3, 9)
+
+while True:
+	print(dog1.stats())
+	print(dog2.stats())
+	choice = input("What do you want to do?")
+	if choice == "eat":
+		print(dog1.eat(2))
+		print(dog2.eat(3))
+	elif choice == "sleep":
+		print(dog1.sleep(3))
+		print(dog2.sleep(2))
+	elif choice == "walk":
+		print(dog1.walk())
+		print(dog2.walk())
+	else:
+		print("You can't do that!")
+
