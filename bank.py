@@ -56,7 +56,7 @@ while True:
 	if xc == "open":
 		openc = True
 		PIN = input("Please choose a 4 digit PIN: ")
-		money = int(input("Please enter an initial amount of money"))
+		money = int(input("Please enter an initial amount of money: "))
 		break
 	else:
 		print("That is not an option.")
@@ -70,5 +70,7 @@ while True:
 		bank1.withdraw()
 	elif choice == "insert":
 		bank1.insert()
+	elif choice == "close":
+		bank1.close()
 	else:
 		print("That's not a valid option.")
