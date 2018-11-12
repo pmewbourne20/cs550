@@ -3,7 +3,7 @@ import random as random
 import math as m
 imgx = int(input("Enter the dimensions of the square maze.\n\n>>"))
 imgy = imgx
-amnt = int(input("Enter the amounts of corners you want\n\n>>"))
+#amnt = int(input("Enter the amounts of corners you want\n\n>>"))
 
 image = Image.new("RGB",(imgx,imgy))
 
@@ -49,70 +49,61 @@ image.putpixel((1,1),YELLOW)
 #     else:
 #         w = 1
 
-def startmove(x,y,g,num_iters = 0):
+def startmove(x,y,num_iters = 0):
 	print("**In start move!",x,y)
-	w, d, s, a = 0,0,0,0
+	up, right, left, down = 0,0,0,0
+	cram = 0
 	if num_iters == 5:
 		return
-	while True:
-		px = image.load()
-		i = random.randint(1,4)        
-		# i
-		# if i == 1:
-	   # add_pixel_in_direction(i)
-		# if i == 2:
-			
-		# 2 == 
-		# 3 == 
-		# 4 == 
-		print("==================",i,num_iters)
-		if i == 1:
-			if (y-2 > 0) and px[y-2,x] != YELLOW:
+	while cram < 50:
+		pixels = image.load()
+		direction = random.randint(1,4)        
+		print("==================",direction,num_iters)
+		if direction == 1:
+			if (y-2 > 0) and pixels[y-2,x] != YELLOW:
 				image.putpixel((x,y-1),YELLOW)
 				image.putpixel((x,y-2),YELLOW)
-				g+=2
-				px = image.load()
-				print("pixel",i," marked")
-				startmove(x,y-2,g, num_iters+1)
+				pixels = image.load()
+				print("pixel",direction," marked")
+#				startmove(x,y-2, num_iters+1)
 			else:
-				w = 1
-		elif i == 2:
-			if (x+2 < imgx) and px[y,x+2] != YELLOW:
+				up = 1
+		elif direction == 2:
+			if (x+2 < imgx) and pixels[y,x+2] != YELLOW:
 				image.putpixel((x+1,y),YELLOW)
 				image.putpixel((x+2,y),YELLOW)
-				g+=2
-				px = image.load()
-				print("pixel",i," marked")
-				startmove(x+2,y,g, num_iters+1)
+				pixels = image.load()
+				print("pixel",direction," marked")
+#				startmove(x+2,y,num_iters+1)
 			else:
-				d = 1
-		elif i == 3 :
-			if (y+2 < imgy) and px[y+2,x] != YELLOW:
+				right = 1
+		elif direction == 3 :
+			if (y+2 < imgy) and pixels[y+2,x] != YELLOW:
 				image.putpixel((x,y+1),YELLOW)
 				image.putpixel((x,y+2),YELLOW)
-				g+=2
 				px = image.load()
-				print("pixel",i," marked")
-				startmove(x,y+2,g, num_iters+1)
+				print("pixel",direction," marked")
+#				startmove(x,y+2,num_iters+1)
 			else:
-				s = 1
-		elif i == 4:
-			if (x-2 > 0) and px[y,x-2] != YELLOW:
+				down = 1
+		elif direction == 4:
+			if (x-2 > 0) and pixels[y,x-2] != YELLOW:
 				image.putpixel((x-1,y),YELLOW)
 				image.putpixel((x-2,y),YELLOW)
-				g+=2
-				px = image.load()
-				print("pixel",i," marked")
-				startmove(x-2,y,g, num_iters+1)
+				pixels = image.load()
+				print("pixel",direction," marked")
+#				startmove(x-2,y,num_iters+1)
 			else:
-				a = 1
-		print(w,d,s,a)
-		if w == 1 and d == 1 and s == 1 and a == 1:
+				left = 1
+		print(up,right,left,down)
+		if up == 1 and right == 1 and left == 1 and down == 1:
 			if (x,y) == (1,1):
 			    image.show()
 			print("Go back")
 			return 
+		cram += 1
 		
 
 
 startmove(1,1,0)
+image.show()
