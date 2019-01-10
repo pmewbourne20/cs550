@@ -18,7 +18,9 @@ def startmove(x,y,num_iters = 0):
 		if direction == 1:
 			if (y-2 > 0): 
 				print(len(pixels),len(pixels[0]),x,y, "a")
-				if pixels[y-2][x] != " ":
+				print(pixels[y-2][x])
+				if pixels[y-2][x] == "*":
+					print("!!!!!!")
 					pixels[y-1][x] = " "
 					pixels[y-2][x] = " "
 					print("pixel",direction," marked")
@@ -31,7 +33,7 @@ def startmove(x,y,num_iters = 0):
 		if direction == 2:
 			if (x+2 < imgx):
 				print(x,y, "b")
-				if pixels[y][x+2] != " ":
+				if pixels[y][x+2] == "*":
 					pixels[y][x+1] = " "
 					pixels[y][x+2] = " "
 					print("pixel",direction," marked")
@@ -43,7 +45,7 @@ def startmove(x,y,num_iters = 0):
 		if direction == 3 :
 			if (y+2 < imgy):
 				print(x,y, "c")
-				if pixels[y+2][x] != " ":
+				if pixels[y+2][x] == "*":
 					pixels[y+2][x] = " "
 					pixels[y+1][x] = " "
 					print("pixel",direction," marked")
@@ -55,7 +57,7 @@ def startmove(x,y,num_iters = 0):
 		if direction == 4:
 			if (x-2 > 0):
 				print(x,y, "direction")
-				if pixels[y][x-2] != " ":
+				if pixels[y][x-2] == "*":
 					pixels[y][x-1] = " "
 					pixels[y][x-2] = " "
 					print("pixel",direction," marked")
