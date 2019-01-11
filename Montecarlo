@@ -1,0 +1,36 @@
+#The highest amount of blocks you can walk and still be only 4 blocks away is 22. 22 gives about a 50% rate of being 4 blocks from home.
+#The program picks a random direction, changes an x and y coordinate, and then calculates the distance between the initial and final distance.
+#Monte Carlo simulations are risk analysis systems, running simulations with random variables to find all possible results, and chart them. Monte carlo simulations are used to estimate risk in economics and other fields.
+import random
+
+# def walk(n):
+# 	x = 0
+# 	y = 0
+# 	for i in range(n):
+# 		#This is what I was doing originally, but I saw a much more efficient way to do it in the video. I originally had 4 separate numbers for 4 directions.
+# 		(xfin,yfin) = random.choice([(0,1),(1,0),(0,-1),(-1,0)])
+# 		x += xfin
+# 		y += yfin
+# 	return(x, y)
+
+# walk = random_walk_2(10)
+# #Copied this from the video to find distance. Before, was using distance formula
+# print(walk, "Distance =", abs(walk[0])+abs(walk[1]))
+
+#darts:
+
+
+
+def dart_throw(n):
+	wins = 0
+	for i in range(n):
+		dartx = random.uniform(-1,1)
+		darty = random.uniform(-1,1)
+		if ((dartx**2)+(darty**2)<=1):
+			wins += 1
+	print(wins)
+
+dart_throw(1000)
+
+#came out to 70. 70*4 = 280, /100 = 2.8
+#Its always around 70-80% success rate.
